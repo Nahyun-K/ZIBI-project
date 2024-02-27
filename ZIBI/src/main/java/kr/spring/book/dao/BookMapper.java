@@ -99,8 +99,12 @@ public interface BookMapper {
 	
 	/*----------------- 댓글 -----------------*/
 	public List<BookReplyVO> selectListReply(Map<String,Object> map);
+	// 개수 카운팅용
 	@Select("SELECT COUNT(*) FROM book_reply WHERE book_num=#{book_num} AND book_deleted = 0")
 	public int selectRepCount(Map<String,Object> map);
+	// 목록용
+	@Select("SELECT COUNT(*) FROM book_reply WHERE book_num=#{book_num}")
+	public int selectRepCountAll(Map<String,Object> map);
 	@Select("SELECT * FROM book_reply WHERE rep_num=#{rep_num}")
 	public BookReplyVO selectReply(int rep_num);
 	public void insertReply(BookReplyVO bookReply);

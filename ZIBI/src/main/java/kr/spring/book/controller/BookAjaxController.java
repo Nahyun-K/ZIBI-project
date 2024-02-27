@@ -322,13 +322,16 @@ public class BookAjaxController {
 		Map<String,Object> map = new HashMap<String, Object>();
 		map.put("book_num", book_num);
 		
-		// 전체 레코드 수
+		// 삭제 제외 레코드 수
 		int rpcount = bookService.selectRepCount(map);
+		// 전체 레코드 수
+		int rpcountAll = bookService.selectRepCountAll(map);
+		
 		// 페이지 처리
 		PageUtil_book rppage = new PageUtil_book(currentPage, rpcount, rowCount);
 		List<BookReplyVO> rplist = null;
 		
-		if(rpcount > 0) {// 댓글 목록
+		if(rpcountAll > 0) {// 댓글 목록
 			map.put("rpstart", rppage.getStartRow());
 			map.put("rpend", rppage.getEndRow());
 			

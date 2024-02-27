@@ -50,6 +50,7 @@ public interface BookService {
 	/*----------------- 댓글 -----------------*/
 	public List<BookReplyVO> selectListReply(Map<String,Object> map);
 	public int selectRepCount(Map<String,Object> map);
+	public int selectRepCountAll(Map<String,Object> map);
 	public BookReplyVO selectReply(int rep_num);
 	public void insertReply(BookReplyVO bookReply);
 	public void insertReplies(BookReplyVO bookReply);

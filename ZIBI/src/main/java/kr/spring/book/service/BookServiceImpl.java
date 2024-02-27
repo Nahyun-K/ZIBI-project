@@ -197,4 +197,9 @@ public class BookServiceImpl implements BookService{
 		bookMapper.deleteReply(rep_num);
 	}
 
+	@Override
+	public int selectRepCountAll(Map<String, Object> map) {
+		return bookMapper.selectRepCountAll(map);
+	}
+
 }
