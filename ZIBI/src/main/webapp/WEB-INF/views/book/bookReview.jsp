@@ -46,8 +46,7 @@
 				<div id="revValid" class="error-phrase"></div>
 				<div class="align-center">
 					<input type="submit" value="후기 남기기" class="w-25 btn btn-light form-control p-3 rounded-pill active">
-					<input type="button" class="w-25 btn btn-light form-control p-3 rounded-pill active" 
-						onclick="location.href='list'" value="목록으로">
+					<input type="button" class="w-25 btn btn-light form-control p-3 rounded-pill active" onclick="location.href='list'" value="목록으로">
 				</div>	
 			</form>
 		</div>

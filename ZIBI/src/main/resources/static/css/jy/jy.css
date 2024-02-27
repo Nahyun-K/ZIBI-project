@@ -1,6 +1,6 @@
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 
-/*----------- 공통 문구 스타일 -----------*/
+/*----------------- 공통 문구 스타일 -----------------*/
 .guide-phrase{
 	font-size:12px;
 	color:#32a77b;
@@ -39,7 +39,7 @@ h4{
 	padding:17px 0 10px 0;
 }
 
-/*----------- 공통 검색폼 스타일 -----------*/
+/*----------------- 검색바 스타일 -----------------*/
 form#search_form{
 	border:none;
 }
@@ -87,7 +87,7 @@ input::-webkit-search-results-decoration{
 	cursor:pointer;
 }
 
-/*----------- 공통 버튼 -----------*/
+/*----------------- 공통 버튼 -----------------*/
 .default-btn,input[type=file]::file-selector-button{
 	background:#32a77b;
 	color:white;
@@ -166,7 +166,7 @@ input::-webkit-search-results-decoration{
 	font-size: 15px;
 }
 
-/*----------- 공통 정렬 -----------*/
+/*----------------- 공통 정렬 -----------------*/
 .align-center{
 	text-align:center;
 }
@@ -174,7 +174,7 @@ input::-webkit-search-results-decoration{
 	text-align:right;
 }
 
-/*----------- 폼 -----------*/
+/*----------------- 폼 -----------------*/
 /* 공통 */
 #book_write label, #book_update label, #book_cancel label{
 	margin-bottom:15px;
@@ -264,6 +264,7 @@ input[value="우편번호 찾기"]{
 #file_detail{
 	margin-top:7px;
 }
+
 /* 취소 */
 #cancelAgree{
 	margin-left:10px;
@@ -282,6 +283,7 @@ input[value="우편번호 찾기"]{
 	border-radius:7px;
 	margin-left:-30px;
 }
+
 /* 후기 */
 #book_rev{
 	resize:none;
@@ -343,6 +345,7 @@ input[value="우편번호 찾기"]{
 	font-size:13px;
 	color:gray;
 }
+
 /*CKEditor*/
 .ck-editor__editable_inline{
 	min-height:450px;
@@ -351,7 +354,7 @@ input[value="우편번호 찾기"]{
 	font-size: 14px;
 }
 
-/*----------- 모임글 목록 -----------*/
+/*----------------- 모임글 목록 -----------------*/
 ul.book-ul{
 	list-style:none;
 }
@@ -411,7 +414,8 @@ li.book-li{
 	font-weight:bold;
 	font-size:20px;
 }
-/*----------- 나의 예약 내역(나의 모임) -----------*/
+
+/*----------------- 나의 예약 내역(나의 모임) -----------------*/
 #match_table{
 	background:rgba(233,242,234,0.2);
 	margin-left:auto;
@@ -466,7 +470,7 @@ li.book-li{
 	font-size:13px;
 }
 
-/*----------- 모임글 상세 -----------*/
+/*----------------- 모임글 상세 -----------------*/
 .book-thumb{
 	width:300px;
 	height:300px;
@@ -524,6 +528,7 @@ li.book-li{
 #book_detail hr{
 	background:#c2d1c7;
 }
+
 /*스크랩*/
 .scrap-area{
 	position:absolute;
@@ -537,6 +542,7 @@ li.book-li{
 	font-size:13px;
 	color:lightgray;
 }
+
 /*후기*/
 .owl-none{
 	text-align:center;
@@ -572,6 +578,7 @@ p.mb-1{
 .owl-grade{
 	color:#32a77b;
 }
+
 /*공유*/
 .link-icon{
 	position:relative;
@@ -588,6 +595,7 @@ p.mb-1{
 	border:0;
 	margin:3px 0 30px 940px;
 }
+
 /*댓글*/
 #reply_count{
 	font-size:24px;
@@ -786,7 +794,8 @@ div.deleted-div{
 	color:gray;
 	padding-top:10px;
 }
-/*----------- 모임 신청폼 (모달) -----------*/
+
+/*----------------- 모임 신청폼 (모달) -----------------*/
 #bookApplyModal{
 	font-size:0.7em;
 	margin:0 auto;
@@ -806,7 +815,7 @@ div.deleted-div{
 #close_btn{
 	width:23px;
 	cursor:pointer;
-	margin-left:640px;
+	margin-left:610px;
 	margin-top:-100px;
 }
 .applySub{

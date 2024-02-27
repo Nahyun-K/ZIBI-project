@@ -3,8 +3,8 @@ $(function(){
 	let currentPage;
 	let rpcount;
 	
-	/*-------- 댓글 목록 --------*/
-	//댓글 목록
+	/*----------------- 댓글 목록 -----------------*/
+	// 댓글 목록
 	function selectList(pageNum){
 		currentPage = pageNum;
 		$('#loading').show();
@@ -22,10 +22,10 @@ $(function(){
 					$('#output').empty();
 				}
 				
-				//댓글 수 읽어오기
+				// 댓글 수 읽어오기
 				displayReplyCount(param);
 				
-				//댓글 목록 UI
+				// 댓글 목록 UI
 				$(param.rplist).each(function(index,item){
 					let output = '<div class="item">';
 						output += '<input type="hidden" value="'+item.rep_num+'" id="hidden_num">';
@@ -35,7 +35,7 @@ $(function(){
 						output += '</li>';
 						output += '<li id="re_nick">'+'<a href="../member/mypageOpen?mem_num='+item.mem_num+'" class="nick-open">'+item.mem_nickname+'</a></li>';
 						
-						//공개
+						// 댓글 공개
 						if(item.book_deleted == 0){
 							output += '<img src="../images/jy/rep_menu.png" class="rep-menu" data-num='+item.rep_num+'></div>';
 						
@@ -60,18 +60,16 @@ $(function(){
 							output += '<div class="re-item" id="item_re'+item.rep_num+'"></div>';
 						}
 						
-						//삭제 처리
+						// 삭제 처리
 						if(item.book_deleted == 1){
 							output += '<div class="deleted-div">ⓘ 작성자에 의해 삭제된 댓글입니다.</div>';
 							output += '<div class="re-item2" id="item_re'+item.rep_num+'"></div>';
 						}
 						
-						
-						
-					if(item.ref_level == 1){//원댓글
-						//문서 객체에 추가
+					if(item.ref_level == 1){// 원댓글
+						// 문서 객체에 추가
 						$('#output').prepend(output);
-					}else if(item.ref_level == 2){//대댓글
+					}else if(item.ref_level == 2){// 대댓글
 						$('#item_re'+item.ref_rep_num).append('<span class="re-span">ㄴ </span>'+output)
 													.css('border-top','1px solid #c2c2c2')
 													.css('border-bottom','1px solid #c2c2c2')
@@ -79,12 +77,12 @@ $(function(){
 					}
 				});
 					
-					//paging button 처리
+					// paging button 처리
 					if(currentPage>=Math.ceil(rpcount/rowCount)){
-						//다음 페이지가 없음
+						// 다음 페이지가 없음
 						$('.paging-button').hide();
 					}else{
-						//다음 페이지가 존재
+						// 다음 페이지가 존재
 						$('.paging-button').show();
 					}
 			},
@@ -94,14 +92,14 @@ $(function(){
 			}
 		});
 	}
-	//다음 댓글 보기 버튼 클릭 시 데이터 추가
+	// 다음 댓글 보기 버튼 클릭 시 데이터 추가
 	$('.paging-button input').click(function(){
 		selectList(currentPage + 1);
 	});
 	
 	
-	/*-------- 댓글 등록 --------*/
-	//댓글 등록
+	/*----------------- 댓글 등록 -----------------*/
+	// 댓글 등록
 	$('#re_form').submit(function(event){
 		if($('#book_rep').val().trim()==''){
 			alert('댓글 내용을 입력하지 않았습니다.');
@@ -132,17 +130,17 @@ $(function(){
 				alert('네트워크 오류 발생');
 			}
 		});
-		//기본 이벤트 제거
+		// 기본 이벤트 제거
 		event.preventDefault();
 	});
 	
-	//댓글 작성 폼 초기화 함수
+	// 댓글 작성 폼 초기화 함수
 	function initForm(){
 		$('textarea').val('');
 		$('#re_first .letter-rpcount').text('300/300');
 	}
 	
-	/*-------- 대댓글 등록 --------*/
+	/*----------------- 대댓글 등록 -----------------*/
 	$(document).on('click','.rerep-btn',function(){
 		
 		let nick = $(this).attr('data-nick');
@@ -153,7 +151,7 @@ $(function(){
 			return;
 		}
 		
-		//대댓글 UI
+		// 대댓글 UI
 		let rerepUI = '<span class="re-span2">ㄴ </span>';
 			rerepUI += '<form id="rere_form">';
 			rerepUI += '<div class="rerep-info">'+'<img src="../member/viewProfile?mem_num='+ mem_num +'" class="rep-profile">' + nick+'</div>';
@@ -164,31 +162,31 @@ $(function(){
 			rerepUI += '</div>';
 			rerepUI += '</form>';
 		
-		//이전에 작업 중이던 대댓글 폼 초기화
+		// 이전에 작업 중이던 대댓글 폼 초기화
 		initReForm();
 		$(this).parents('.item').append(rerepUI);
 		
-		//입력한 글자수 세팅
+		// 입력한 글자수 세팅
 		let inputLength = $('#book_rerep').val().length;
 		let remain = 300 - inputLength;
 		remain += '/300';
 		
-		//문서 객체에 반영
+		// 문서 객체에 반영
 		$('#rere_first .letter-rpcount').text(remain);
 	});
 	
-	//취소 버튼 클릭 시 초기화
+	// 취소 버튼 클릭 시 초기화
 	$(document).on('click','.re-reset',function(){
 		initReForm();
 	});
 	
-	//대댓글 폼 초기화 함수
+	// 대댓글 폼 초기화 함수
 	function initReForm(){
 		$('.re-span2').remove();
 		$('#rere_form').remove();
 	}
 	
-	//대댓글 등록
+	// 대댓글 등록
 	$(document).on('submit','#rere_form',function(event){
 		if($('#book_rerep').val().trim()==''){
 			alert('댓글 내용을 입력하지 않았습니다.');
@@ -199,7 +197,7 @@ $(function(){
 		let ref_rep_num = $(this).parent().find('input').val();
 		let book_rerep = $('#book_rerep').val();
 		
-		//서버와 통신
+		// 서버와 통신
 		$.ajax({
 			url:'insertReReply',
 			type:'post',
@@ -221,12 +219,12 @@ $(function(){
 				alert('네트워크 오류 발생');
 			}
 		});
-		//기본 이벤트 제거
+		// 기본 이벤트 제거
 		event.preventDefault();	
 	});
 	
-	/*-------- 댓글 삭제 --------*/
-	//삭제 버튼 노출하기/감추기
+	/*----------------- 댓글 삭제 -----------------*/
+	// 삭제 버튼 노출하기/감추기
 	$(document).on('click','.rep-menu',function(){
 		let rep_num = $(this).attr('data-num');
 		$('#rep_delete'+rep_num).show();
@@ -236,7 +234,7 @@ $(function(){
 		});
 	});
 	
-	//댓글 삭제
+	// 댓글 삭제
 	$(document).on('click','.rep-delete, .rerep-delete',function(){
 		if(confirm('댓글을 삭제하시겠습니까?')==false){
 			return;
@@ -244,7 +242,7 @@ $(function(){
 		
 		let rep_num = $(this).attr('data-num');
 		
-		//서버와 통신
+		// 서버와 통신
 		$.ajax({
 			url:'deleteReply',
 			type:'post',
@@ -268,27 +266,27 @@ $(function(){
 		});
 	});
 	
-	/*-------- 댓글 글자수 체크 --------*/
+	/*----------------- 댓글 글자수 체크 -----------------*/
 	$(document).on('keyup','textarea',function(){
 		let inputLength = $(this).val().length;
 		
 		if(inputLength>300){
 			$(this).val($(this).val().substring(0,300));
-		}else{//300자 이하인 경우
-			//남은 글자수 구하기
+		}else{// 300자 이하인 경우
+			// 남은 글자수 구하기
 			let remain = 300 - inputLength;
 			remain += '/300';
 			if($(this).attr('id')=='book_rep'){
-				//등록폼 글자수
+				// 등록폼 글자수
 				$('#re_first .letter-rpcount').text(remain);
 			}else if($(this).attr('id')=='book_rerep'){
-				//대댓글 등록폼 글자수
+				// 대댓글 등록폼 글자수
 				$('#rere_first .letter-rpcount').text(remain);
 			}
 		}
 	});
 	
-	/*-------- 댓글수 표시 함수 --------*/
+	/*----------------- 댓글수 표시 함수 -----------------*/
 	function displayReplyCount(param){
 		let count = param.rpcount;
 		let output;
@@ -297,10 +295,10 @@ $(function(){
 		}else{
 			output = '💭 0 Comments';
 		}
-		//문서 객체에 추가
+		// 문서 객체에 추가
 		$('#reply_count').text(output);
 	}
 	
-	/*-------- 초기 데이터(목록) 호출 --------*/
+	/*----------------- 초기 데이터(목록) 호출 -----------------*/
 	selectList(1);
 });

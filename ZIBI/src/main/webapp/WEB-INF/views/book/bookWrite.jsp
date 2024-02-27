@@ -50,8 +50,7 @@
 				</div>
 				<div>
 					<form:label path="book_gatheringDate">모임 일정</form:label>
-					<form:input path="book_gatheringDate" class="w-100 form-control p-3" 
-						placeholder="모임 날짜와 시간을 선택해 주세요!" autocomplete="off"/>
+					<form:input path="book_gatheringDate" class="w-100 form-control p-3" placeholder="모임 날짜와 시간을 선택해 주세요!" autocomplete="off"/>
 					<span class="guide-phrase">*입력창을 클릭해 모임 날짜와 시간을 선택하세요!</span>
 					<br>	
 					<form:errors path="book_gatheringDate" cssClass="error-phrase"/>
@@ -131,8 +130,7 @@
 				<div class="filebox">
 					<form:label path="book_thumbnailName">썸네일</form:label>
 					<br>
-					<input type="file" id="book_thumbnailName" name="upload"
-						accept="image/gif,image/png,image/jpeg">
+					<input type="file" id="book_thumbnailName" name="upload" accept="image/gif,image/png,image/jpeg">
 					<br>
 					<span class="guide-phrase">
 						*500 x 500px 또는 1:1 비율의 고화질 이미지를 권장하며 미선택 시 기본 이미지가 제공됩니다.
@@ -141,19 +139,16 @@
 				<div>
 					<form:label path="book_expense">참여 비용</form:label>
 					<input type="number" id="book_expense" name="book_expense"
-						class="w-100 form-control p-3" placeholder="비용이 발생하지 않는다면 넘어가도 좋아요!"
-						autocomplete="off">
+						class="w-100 form-control p-3" placeholder="비용이 발생하지 않는다면 넘어가도 좋아요!" autocomplete="off">
 				</div>
 				<div>
 					<form:label path="book_kit">준비물</form:label>
 					<form:input path="book_kit" class="w-100 form-control p-3" 
-						placeholder="지참해야 하는 준비물이 있다면 알려주세요!  ex. 붓, 수채화 물감"
-						autocomplete="off"/>
+						placeholder="지참해야 하는 준비물이 있다면 알려주세요!  ex. 붓, 수채화 물감" autocomplete="off"/>
 				</div>
 				<div class="align-center" style="margin-top:20px;">
-				<input type="submit" value="모임 만들기" class="w-25 btn btn-light form-control p-3 rounded-pill active">
-				<input type="button" class="w-25 btn btn-light form-control p-3 rounded-pill active" 
-					onclick="location.href='list'" value="목록으로">
+					<input type="submit" value="모임 만들기" class="w-25 btn btn-light form-control p-3 rounded-pill active">
+					<input type="button" class="w-25 btn btn-light form-control p-3 rounded-pill active" onclick="location.href='list'" value="목록으로">
 				</div>	
 			</form:form>
 		</div>
@@ -212,7 +207,7 @@
 <!-- Daum 지도 API 끝 -->
 <script type="text/javascript">
 window.onload = function(){
-	//참여 인원 기본값 0 초기화
+	// 참여 인원 기본값 0 초기화
 	let book_maxcount = document.getElementById('book_maxcount');
 	if(book_maxcount.value == 0){
 		book_maxcount.value = '';

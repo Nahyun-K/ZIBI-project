@@ -57,8 +57,7 @@
 				<hr size="3" noshade="noshade" width="100%">
 				<div>
 					<label for="mem_email">이메일</label>
-					<input type="email" id="mem_email" name="mem_email"
-						class="w-100 form-control p-3" autocomplete="off">
+					<input type="email" id="mem_email" name="mem_email" class="w-100 form-control p-3" autocomplete="off">
 					<span class="guide-phrase">*가입 시 기입한 이메일을 입력해 주세요.</span>	
 					<div id="emailValid" class="error-phrase"></div>	
 				</div>
@@ -74,8 +73,7 @@
 				</div>
 				<div class="align-center" style="margin-top:20px;">
 				<input type="submit" value="모임 취소하기" class="w-25 btn btn-light form-control p-3 rounded-pill active">
-				<input type="button" class="w-25 btn btn-light form-control p-3 rounded-pill active" 
-					onclick="location.href='list'" value="목록으로">
+				<input type="button" class="w-25 btn btn-light form-control p-3 rounded-pill active" onclick="location.href='list'" value="목록으로">
 				</div>	
 			</form>
 		</div>
@@ -83,7 +81,7 @@
 </div>
 <script type="text/javascript">
 window.onload = function(){
-	//입력 유효성 체크
+	// 입력 유효성 체크
 	$('#book_cancel').submit(function(){
 		if($('#mem_email').val().trim()==''){
 			$('#emailValid').text('@이 포함된 올바른 이메일 주소를 입력해 주세요.');

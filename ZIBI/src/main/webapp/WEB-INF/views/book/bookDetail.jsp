@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!-- 내용 시작 -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/videoAdapter.js"></script>
+<%-- 모임 취소된 게시글 --%>
 <c:if test="${book.book_onoff == 2}">
 	<script type="text/javascript">
 		location.replace('list');
@@ -16,12 +17,14 @@
 				<c:if test="${book.book_category == 0}"><div style="background:#0f4b43;" class="book-first">취미 소모임</div></c:if>
                 <c:if test="${book.book_category == 1}"><div style="background:#5eaf08;" class="book-first">원데이 클래스</div></c:if>
                 <c:if test="${book.book_category == 2}"><div style="background:#486627;" class="book-first">스터디 모임</div></c:if>
+                <%-- 스크랩 시작 --%>
 				<div class="scrap-area">
              		<img id="output_scrap" data-num="${book.book_num}"
              			src="${pageContext.request.contextPath}/images/jy/noScrap.png" width="40px">
              		<br>	
              		<span id="output_scount"></span>	
              	</div>
+             	<%-- 스크랩 끝 --%>
 			</div>
 			<div style="float:left;">
 				<c:if test="${empty book.book_thumbnailName}">
@@ -59,6 +62,7 @@
 				</tr>	
 				<tr class="book-profileArea">
 					<td>
+						<input type="hidden" value="${book.book_num}" id="bookNumD">
 						<%-- 참여자 --%>
 						<c:if test="${user.mem_num != book.mem_num}">
 							<img class="book-profile" src="${pageContext.request.contextPath}/member/viewProfile?mem_num=${book.mem_num}">
@@ -70,8 +74,7 @@
 						<c:if test="${user.mem_num == book.mem_num}">
 							<c:if test="${book.compareNow == 2}">
 								<c:if test="${book.book_onoff == 0 && book.book_headcount < book.book_maxcount}">
-									<input type="button" value="모집 마감하기" class="bookd-btn-green w-75"
-										id="complete_btn" data-num="${book.book_num}" data-head="${book.book_headcount}">
+									<input type="button" value="모집 마감하기" class="bookd-btn-green w-75" id="complete_btn" data-head="${book.book_headcount}">
 								</c:if>
 								<c:if test="${book.book_onoff == 3 || book.book_headcount == book.book_maxcount}">
 									<input type="button" value="모집 마감" class="btn btn-light w-100" disabled>
@@ -79,12 +82,10 @@
 							</c:if>
 							<c:if test="${book.compareNow == 1}">
 								<c:if test="${book.book_onoff == 0 || book.book_onoff == 3}">
-									<input type="button" value="모임 완료하기" class="bookd-btn-green w-100 book-complete"
-										data-num="${book.book_num}">
+									<input type="button" value="모임 완료하기" class="bookd-btn-green w-100 book-complete">
 								</c:if>
 								<c:if test="${book.book_onoff == 1}">
-									<input type="button" value="새로 모집하기" class="bookd-btn w-75"
-										id="reset_btn" data-num="${book.book_num}">
+									<input type="button" value="새로 모집하기" class="bookd-btn w-75" id="reset_btn">
 								</c:if>
 							</c:if>
 						</c:if>
@@ -92,10 +93,10 @@
 				</tr>
 			</table>
 			<hr size="3" width="100%">
+			<%-- 모임 후기 시작 --%>
 			<div>
 				<span class="book-span">모임 후기 (${rcount})</span>
 				<br><br>
-				<%-- 모임 후기 --%>
 				<c:if test="${rcount == 0}">
 					<div class="owl-none">
 						<img src="${pageContext.request.contextPath}/images/logo_mini.png" width="40px"> 
@@ -141,7 +142,8 @@
 						});
 					});
 				</script>
-			</div>	
+			</div>
+			<%-- 모임 후기 끝 --%>	
 			<hr size="3" width="100%">
 			<div class="book-listDiv">
 				<span class="book-span">모임 소개</span>
@@ -170,6 +172,7 @@
 					${book.book_kit}
 				</c:if>
 			</div>
+			<%-- SNS 공유 시작 --%>
 			<div class="sns-area">
 				<input type="hidden" value="${ngrokkey}" id="ngrok">
 				<input type="hidden" value="${kakao_apikey}" id="apikey">
@@ -184,6 +187,7 @@
 				</a>
 			</div>
 			<hr size="3" width="13%" id="sns_hr">
+			<%-- SNS 공유 끝 --%>
 			<div class="align-center">
 				<%-- 주최자 --%>
 				<c:if test="${!empty user && user.mem_num == book.mem_num && book.book_onoff == 0}">
@@ -254,7 +258,7 @@
 	</div>
 </div>
 <%-- 참여 신청 폼(모달) --%>
-<div id="bookApplyModal" style="display: none">
+<div id="bookApplyModal" style="display:none">
 	<div class="modal-box">
 		<div class="title-phrase2" style="margin-bottom:-20px;">
 			이 모임에 참여할래요!
@@ -306,22 +310,19 @@
 		<hr size="3" noshade="noshade" width="100%">
 			<div class="applyDiv">
 				<label for="mem_name">이름</label>
-				<input type="text" name="mem_name" autocomplete="off"
-					id="mem_name" class="form-control" required/>
+				<input type="text" name="mem_name" autocomplete="off" id="mem_name" class="form-control" required/>
 				<span id="nameValid" class="error-phrase"></span>
 			</div>
 			<div class="applyDiv2">	
 				<label for="mem_email">이메일</label>
-				<input type="email" name="mem_email" autocomplete="off"
-					id="mem_email" class="form-control" required/>
+				<input type="email" name="mem_email" autocomplete="off" id="mem_email" class="form-control" required/>
 				<span class="guide-phrase">*입력하신 이메일 주소로 신청 완료 메일이 전송됩니다. 실제 사용하고 계신 이메일을 기입해 주세요.</span>
 				<br>
 				<span id="emailValid" class="error-phrase"></span>
 			</div>
 			<div class="applyDiv">
 				<label for="mem_phone">연락처</label>
-				<input type="text" name="mem_phone" autocomplete="off"
-					id="mem_phone" class="form-control" required/>
+				<input type="text" name="mem_phone" autocomplete="off" id="mem_phone" class="form-control" required/>
 				<span id="phoneValid" class="error-phrase"></span>
 			</div>
 			<div>
@@ -339,7 +340,9 @@
 			<button id="apply_btn" class="default-btn" data-num="${book.book_num}" 
 				data-apply="${user.mem_num}" data-state="${book.book_state}" 
 				data-onoff="${book.book_onoff}" data-g="${book.book_gatheringDate}"
-				data-title="${book.book_title}" data-addr="${book.book_address1}">참여하기</button>
+				data-title="${book.book_title}" data-addr="${book.book_address1}">
+				참여하기
+			</button>
 			<img src="${pageContext.request.contextPath}/images/jy/loading.gif" id="apply_loading">		
 	</div>
 	<div class="modal-bg"></div>

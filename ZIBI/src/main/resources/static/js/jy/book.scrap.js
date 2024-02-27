@@ -1,5 +1,5 @@
 $(function(){
-	/*-------- 스크랩 읽기 함수 --------*/
+	/*----------------- 스크랩 읽기 함수 -----------------*/
 	function selectScrap(book_num){
 		$.ajax({
 			url:'getScrap',
@@ -15,7 +15,7 @@ $(function(){
 		});
 	}
 	
-	/*-------- 스크랩 등록/삭제 --------*/
+	/*----------------- 스크랩 등록/삭제 -----------------*/
 	$('#output_scrap').click(function(){
 		$.ajax({
 			url:'clickScrap',
@@ -39,7 +39,7 @@ $(function(){
 		});
 	});
 	
-	/*-------- 스크랩 표시 공통 함수 --------*/
+	/*----------------- 스크랩 표시 공통 함수 -----------------*/
 	function processScrap(param){
 		let output;
 		if(param.status == 'yesScrap'){
@@ -49,11 +49,11 @@ $(function(){
 		}else{
 			alert('스크랩 표시 오류 발생');
 		}
-		//문서 객체에 추가
+		// 문서 객체에 추가
 		$('#output_scrap').attr('src',output);
 		$('#output_scount').text(param.count);
 	}
 	
-	//초기 데이터 표시
+	// 초기 데이터 표시
 	selectScrap($('#output_scrap').attr('data-num'));
 });

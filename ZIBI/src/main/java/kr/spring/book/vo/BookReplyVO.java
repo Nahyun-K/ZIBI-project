@@ -18,5 +18,6 @@ public class BookReplyVO {
 	private int mem_num;
 	private int book_deleted;
 	
+	/*-- 읽어올 정보 --*/
 	private String mem_nickname;
 }

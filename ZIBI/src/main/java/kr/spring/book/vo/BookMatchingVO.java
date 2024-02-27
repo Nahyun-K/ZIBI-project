@@ -19,8 +19,5 @@ public class BookMatchingVO {
 	private String apply_address1;
 	
 	/*-- 읽어올 정보 --*/
-	private String mem_name;
-	private String mem_email;
-	private String mem_phone;
 	private String mem_nickname;
 }

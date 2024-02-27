@@ -104,15 +104,15 @@
 			</c:if>
 		</td>
 		<td>
+			<input type="hidden" value="${mbook.book_num}" id="bookNum">
+			<input type="hidden" value="${mbook.apply_num}" id="applyNum">
 			<%-- 참여자 --%>
 			<c:if test="${user.mem_num == mbook.apply_num && mbook.book_state != 2}">
 				<c:if test="${mbook.compareNow == 2 && mbook.book_onoff == 0}">
-					<input type="button" value="참여 취소하기" class="default-btn4 apply-cancel" 
-						data-num="${mbook.book_num}" data-apply="${mbook.apply_num}">
+					<input type="button" value="참여 취소하기" class="default-btn4 apply-cancel">
 				</c:if>
 				<c:if test="${mbook.compareNow == 1 && mbook.book_state == 1 && mbook.rev_status == 1}">
-					<input type="button" value="후기 작성하기" class="default-btn4" 
-						onclick="location.href='review?book_num=${mbook.book_num}&apply_gatheringDate=${mbook.apply_gatheringDate}'">
+					<input type="button" value="후기 작성하기" class="default-btn4" onclick="location.href='review?book_num=${mbook.book_num}&apply_gatheringDate=${mbook.apply_gatheringDate}'">
 				</c:if>
 				<c:if test="${mbook.compareNow == 1 && mbook.book_state == 1 && mbook.rev_status == 2}">
 					<span class="rev-complete">👏후기 작성 완료👏</span>
@@ -121,20 +121,18 @@
 			<%-- 주최자 --%>
 			<c:if test="${user.mem_num == mbook.mem_num && mbook.book_onoff == 0 && mbook.compareNow == 2}">
 				<c:if test="${mbook.book_match == 2 && mbook.book_state == 0}">
-					<input type="button" value="승인하기" class="default-btn3 apply-approve"
-						data-num="${mbook.book_num}" data-apply="${mbook.apply_num}">
-					<input type="button" value="거절하기" class="default-btn3 apply-deny"
-						data-num="${mbook.book_num}" data-apply="${mbook.apply_num}">
+					<input type="button" value="승인하기" class="default-btn3 apply-approve">
+					<input type="button" value="거절하기" class="default-btn3 apply-deny">
 				</c:if>
 				<c:if test="${mbook.book_state != 2}">
-					<input type="button" value="모임 취소하기" class="default-btn3 book-cancel"
-						onclick="location.href='cancel?book_num=${mbook.book_num}'">
+					<input type="button" value="모임 취소하기" class="default-btn3 book-cancel" onclick="location.href='cancel?book_num=${mbook.book_num}'">
 				</c:if>
 			</c:if>
 		</td>
 	</tr>
 	</c:forEach>
 	</c:if>
+	<%-- 모임 내역이 존재하지 않음 --%>
 	<c:if test="${mcount == 0}">
 		<td colspan="7" class="align-center" style="padding:40px 0;">모임 예약 내역이 존재하지 않습니다.</td>
 	</c:if>
@@ -150,9 +148,7 @@
  		</select>
 		</li>
 		<li>
-			<input type="search" name="keyword" id="keyword" 
-				value="${param.keyword}" class="w-50 p-2"
-				autocomplete="off">
+			<input type="search" name="keyword" id="keyword" value="${param.keyword}" class="w-50 p-2" autocomplete="off">
 		</li>
 		<li>
  			<input type="image" src="../images/jy/search-icon.png" class="btn-search">
@@ -171,8 +167,9 @@
 		</c:if>	
 	</div>
 </form>
+<%-- 소모임 게시글이 존재하지 않음 --%>
 <c:if test="${count == 0}">
-<div class="result-display">표시할 게시물이 없습니다.</div>
+	<div class="result-display">표시할 게시물이 없습니다.</div>
 </c:if>
 <c:if test="${count > 0}">
 <c:forEach var="book" items="${list}">
