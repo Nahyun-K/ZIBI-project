@@ -6,10 +6,13 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<%-- naver --%>
 	<meta property="og:title" content="ZIBI">
-	<meta property="og:url" content="https://11b8-58-76-175-14.ngrok-free.app/book/list">
-	<meta property="og:image" content="https://firebasestorage.googleapis.com/v0/b/zibi-jy.appspot.com/o/logo(typo)_1x1_240112.png?alt=media&token=8afc4e06-80df-4f7d-8f15-f8548e603a72">
+	<meta property="og:url" content="https://68df-58-76-175-14.ngrok-free.app/book/list">
+	<meta property="og:image" content="https://firebasestorage.googleapis.com/v0/b/zibi-jy.appspot.com/o/logo(typo)_1x1_240112.png?alt=media&token=41529d03-5ff1-4c45-ac1c-efa6b7e4454c">
 	<meta property="og:description" content="ZIBI 가입하고 소모임 함께 해요!">
+	<%-- twitter --%>
+	<meta name="twitter:card" content="summary">
 	
 	<title><tiles:getAsString name="tabtitle"/></title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
