@@ -28,7 +28,7 @@ public interface PerformanceService {
 	public List<PerformanceVO> selectPerformanceWithTicketing(Map<String, Object> map);
 	public List<TicketingVO> selectWithTicketing(Map<String, Object> map);
 	
-
+ 
 	public List<CinemaVO> pickCinema(Map<String, Object> map);
 	public List<PerformanceVO> pickPerformance(Map<String, Object> map);
 	public List<TicketingVO> pickTicketing(Map<String, Object> map);
