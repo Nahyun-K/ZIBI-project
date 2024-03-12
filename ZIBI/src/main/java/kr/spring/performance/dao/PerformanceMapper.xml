@@ -95,8 +95,6 @@
 	<insert id="insertChoice" parameterType="choiceVO">
 		INSERT INTO perform_choice(
 		   choice_num,
-		   choice_row,
-		   choice_col,
 		   choice_adult,
 		   choice_teenage,
 		   choice_treatment,
@@ -105,8 +103,6 @@
 		VALUES (
 		   perform_choice_seq.nextval,
 		   #{choice_row},
-		   #{choice_col},
-		   #{choice_adult},
 		   #{choice_teenage},
 		   #{choice_treatment},
 		   #{mem_num},
