@@ -38,7 +38,7 @@
 		   performance_content,
 		   performance_start_date,
 		   performance_age,
-		   performance_category)
+		   performance_id)
 		VALUES (
 		   performance_seq.nextval, 
 		   #{performance_title},
@@ -46,7 +46,7 @@
 		   #{performance_content},
 		   #{performance_start_date},
 		   #{performance_age},
-		   #{performance_category})
+		   #{performance_id})
 	</insert>
 	<!-- 상영관 등록 -->
 	<insert id="insertCinema" parameterType="cinemaVO">
