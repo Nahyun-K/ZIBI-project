@@ -137,26 +137,96 @@ public class PerformanceController {
 	 * [메인] 공연 리스트
 	 *=================================*/
 	@RequestMapping("/performance/list")
-	public ModelAndView mainList(@RequestParam(value="category", defaultValue="1") int category,
-			                     String keyword) {
-		log.debug("<<목록 메서드>>");
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("keyword", keyword);
-		map.put("category", category);
+	public ModelAndView getMovieInfo(String[] args) throws IOException, InterruptedException, ParseException {
+		StopWatch stopWatch = new StopWatch();
+		stopWatch.start();
 		
-		// 전체/검색 레코드 수
-		int count = performanceService.selectRowCount(map);
-		log.debug("<<count>> : " + count);
-		log.debug("<<category>> : " + category);
-		List<PerformanceVO> list = null;
-		if(count > 0) {
-			list = performanceService.selectList(map);
+		// ----------------------- 리스트 페이지 실행 시 데이터 저장 시작 --------------------------
+		//영화 now-playing 리스트 호출 api
+		HttpRequest request = HttpRequest.newBuilder()
+				.uri(URI.create("https://api.themoviedb.org/3/movie/now_playing?language=ko-KR&page=1&region=KR"))
+				.header("accept", "application/json")
+				.header("Authorization", "Bearer "+tmdbKey)
+				.method("GET", HttpRequest.BodyPublishers.noBody())
+				.build();
+		HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+
+		// json형태의 string일 경우
+		String jsonData = response.body();
+		// reader를 Object로 parse
+		JSONParser parser = new JSONParser();
+		Object obj = parser.parse(jsonData); 
+
+		// obj를 우선 JSONObject에 담음
+		JSONObject jsonMain = (JSONObject)obj;
+
+		// jsonObject에서 jsonArray를 get함
+		JSONArray jsonArr = (JSONArray)jsonMain.get("results");
+		
+		log.debug("" + jsonArr);
+
+		
+		// jsonArr에서 하나씩 JSONObject로 cast해서 사용
+		if (jsonArr.size() > 0){
+			//List<MovieVO> list = new ArrayList<MovieVO>();
+			for(int i=0; i<jsonArr.size(); i++){
+				JSONObject jsonObj = (JSONObject)jsonArr.get(i);
+				
+				PerformanceVO performance = new PerformanceVO();
+				
+				performance.setPerformance_id(Math.toIntExact((Long) jsonObj.get("id")));
+				performance.setPerformance_title((String) jsonObj.get("title"));
+				performance.setPerformance_poster((String) jsonObj.get("poster_path"));
+				performance.setPerformance_content((String)jsonObj.get("overview"));
+				String releaseDateStr = (String) jsonObj.get("release_date");
+				Date releaseDate = Date.valueOf(releaseDateStr);
+				performance.setPerformance_start_date(releaseDate);
+				
+				int movie_num = Math.toIntExact((Long) jsonObj.get("id")); // 영화 id 구하기
+				
+				
+				int count = performanceService.countPerformance(movie_num);
+				log.debug("<<id의 performance COUNT>> : " + count);
+				if(count <= 0) {
+					performanceService.insertPerformance(performance);
+				}
+				
+				
+				//=========2번쨰 api호출=================// 영화 1개 당 상세
+				  HttpRequest request2 = HttpRequest.newBuilder() //영화 id
+				  .uri(URI.create("https://api.themoviedb.org/3/movie/" + movie_num + "?language=ko-KR")) .header("accept", "application/json")
+				  .header("Authorization",
+				  "Bearer " + tmdbKey
+				  ) .method("GET", HttpRequest.BodyPublishers.noBody()) .build();
+				  HttpResponse<String> response2 = HttpClient.newHttpClient().send(request2,HttpResponse.BodyHandlers.ofString());
+				  
+				  
+				  String jsonData2 = response2.body(); 
+				  // reader를 Object로 parse 
+				  JSONParser parser2 = new JSONParser();
+				  Object obj2 = parser2.parse(jsonData2);
+				  
+				  JSONObject jsonObj2 = (JSONObject)obj2;
+				  log.debug("---------------------------------------------------------------------------");
+				  log.debug("" + jsonObj2);
+				  log.debug("---------------------------------------------------------------------------");
+				  
+			}
 		}
+		// ----------------------- 리스트 페이지 실행 시 데이터 저장 끝 --------------------------
 		
+		
+		log.debug("<<목록 메서드>>");
+		
+		List<PerformanceVO> list = getMovie(args); // 현재 상영되는 영화만 출력
+		
+		log.debug("<<LIST>> : " + list);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("performanceList"); // tiles 설정 name과 동일해야 함
-		mav.addObject("count", count);
 		mav.addObject("list", list);
+		
+		stopWatch.stop();
+		log.debug("<<tmdb api를 불러오는 시간>>" + stopWatch.prettyPrint());
 
 		return mav; 
 	}
