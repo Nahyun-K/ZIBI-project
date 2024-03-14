@@ -258,7 +258,6 @@ public class PerformanceController {
 		return new PerformanceVO();
 	}
 	// 등록 폼 호출
-//	@RequestMapping("/performance/write")
 	@RequestMapping("/admin/write") // -> /performance/writePerformance로 변경하기
 	public String form() {
 		log.debug("<<영화 등록 폼>>");
@@ -298,7 +297,6 @@ public class PerformanceController {
 		return new CinemaVO();
 	}
 	// 상영관 등록 폼 호출
-//	@RequestMapping("/performance/writeCinema")
 	@RequestMapping("/admin/writeCinema")
 	public String formCinema() {
 		log.debug("<<상영관 등록 폼>>");
@@ -331,7 +329,7 @@ public class PerformanceController {
 	 *=================================*/
 	// 상영관+영화+날짜 중 영화 출력 페이지 호출
 	@GetMapping("/performance/ticketing")
-	public ModelAndView ticketPage(@RequestParam(value="performance_num", defaultValue="0") int performance_num) {
+	public ModelAndView ticketPage(@RequestParam(value="performance_num", defaultValue="0") int performance_num, String[] args) throws IOException, InterruptedException, ParseException{
 		// 그냥 예매하기 버튼으로 간건지
 		// 영화를 클릭하고 예매하기 버튼으로 갔는지 구분하기
 		log.debug("<<티켓 페이지>>");
@@ -351,10 +349,15 @@ public class PerformanceController {
 		log.debug("<<영화 개수>> : " + count);
 		
 		// 영화 리스트 출력
-		List<PerformanceVO> list = null;
-		if(count > 0) {
-			list = performanceService.selectList(map);
-		}
+//		List<PerformanceVO> list = null;
+//		if(count > 0) {
+//			list = performanceService.selectList(map);
+//		}
+		
+		
+		// 수정
+		List<PerformanceVO> list = getMovie(args); // 현재 상영되는 영화만 출력
+		
 		
 		// 날짜
 		List<TicketingVO> dayList = null;
