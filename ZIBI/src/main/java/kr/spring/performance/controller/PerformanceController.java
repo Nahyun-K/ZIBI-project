@@ -1,9 +1,13 @@
 package kr.spring.performance.controller;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -13,9 +17,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StopWatch;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -38,6 +48,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 public class PerformanceController {
+	
+	//tmdb api 키 호출
+	@Value("${HYUN-API-KEY.tmdbKey}")
+	private String tmdbKey;
+	
+	
 	// 의존성 주입
 	@Autowired
 	private PerformanceService performanceService;
@@ -55,7 +71,68 @@ public class PerformanceController {
 		return mav; //타일스 설정명
 	}
 	
-	
+	// now playing 영화만 뽑기
+	public List<PerformanceVO> getMovie(String[] args) throws IOException, InterruptedException, ParseException {
+		log.debug("이전");
+		//영화 now-playing 리스트 호출 api
+		HttpRequest request = HttpRequest.newBuilder()
+				.uri(URI.create("https://api.themoviedb.org/3/movie/now_playing?language=ko-KR&page=1&region=KR"))
+				.header("accept", "application/json")
+				.header("Authorization", "Bearer "+tmdbKey)
+				.method("GET", HttpRequest.BodyPublishers.noBody())
+				.build();
+		HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+
+		// json형태의 string일 경우
+		String jsonData = response.body();
+		// reader를 Object로 parse
+		JSONParser parser = new JSONParser();
+		Object obj = parser.parse(jsonData); 
+
+		// obj를 우선 JSONObject에 담음
+		JSONObject jsonMain = (JSONObject)obj;
+
+		// jsonObject에서 jsonArray를 get함
+		JSONArray jsonArr = (JSONArray)jsonMain.get("results");
+		
+		log.debug("" + jsonArr);
+		List<PerformanceVO> list = new ArrayList<PerformanceVO>();;
+		
+		// jsonArr에서 하나씩 JSONObject로 cast해서 사용
+		if (jsonArr.size() > 0){
+			//List<MovieVO> list = new ArrayList<MovieVO>();
+			for(int i=0; i<jsonArr.size(); i++){
+				JSONObject jsonObj = (JSONObject)jsonArr.get(i);
+				
+				PerformanceVO performance = new PerformanceVO();
+				
+				performance.setPerformance_id(Math.toIntExact((Long) jsonObj.get("id")));
+				performance.setPerformance_title((String) jsonObj.get("title"));
+				performance.setPerformance_poster((String) jsonObj.get("poster_path"));
+				performance.setPerformance_content((String)jsonObj.get("overview"));
+				String releaseDateStr = (String) jsonObj.get("release_date");
+				Date releaseDate = Date.valueOf(releaseDateStr);
+				performance.setPerformance_start_date(releaseDate);
+				
+				int movie_num = Math.toIntExact((Long) jsonObj.get("id")); // 영화 id 구하기
+				
+				
+				int count = performanceService.countPerformance(movie_num);
+				log.debug("<<id의 performance COUNT>> : " + count);
+				if(count <= 0) {
+					performanceService.insertPerformance(performance);
+				}
+				
+				log.debug("json 값 : " + performance);
+				list.add(performance);
+				
+			}
+		}
+		log.debug("끝");
+		
+		return list;
+		
+	}
 	/*=================================
 	 * [메인] 공연 리스트
 	 *=================================*/
@@ -233,7 +310,7 @@ public class PerformanceController {
 	
 	// 오늘 날짜, 현재 시간
 	public static String getCurrentDateTime() {
-		Date today = new Date();
+		java.util.Date today = new java.util.Date(); // java.util.Date VS java.sql.Date
 		Locale currentLocale = new Locale("KOREAN", "KOREA");
 		String pattern = "yyyy:MM:dd:HH:mm:ss"; // 년 월 일 시 분 초
 		SimpleDateFormat formatter = new SimpleDateFormat(pattern, currentLocale);
