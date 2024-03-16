@@ -379,7 +379,9 @@ public class PerformanceAjaxController {
 			map.put("choice_treatment", choice_treatment);
 			map.put("ticketing_num", ticketing_num);
 			
-			performanceService.deleteChoice(map);
+			
+			// 지워야 함
+			//performanceService.deleteChoice(map);
 			
 		}
 		
