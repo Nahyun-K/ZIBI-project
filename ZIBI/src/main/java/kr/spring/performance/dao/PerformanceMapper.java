@@ -53,6 +53,7 @@ public interface PerformanceMapper {
 	
 	// 결제 페이지
 	public void insertChoice(Map<String, Object> map); // 좌석+영화+상영관+회원에 대한 정보
+	public void insertSeat(Map<String, Object> map);
 	@Update("UPDATE cinema SET cinema_total=cinema_total-#{num} WHERE cinema_num=#{cinema_num}")
 	public void updateChoice(int cinema_num, int num); // 여석 수 업데이트
 	public void insertPayment(Map<String, Object> map);

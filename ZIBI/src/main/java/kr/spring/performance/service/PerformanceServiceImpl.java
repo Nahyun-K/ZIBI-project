@@ -204,7 +204,10 @@ public class PerformanceServiceImpl implements PerformanceService {
 		return performanceMapper.countPerformance(performance_id);
 	}
 
-	
+	@Override
+	public void insertSeat(Map<String, Object> map) {
+		performanceMapper.insertSeat(map);
+	}
 
 
 	
