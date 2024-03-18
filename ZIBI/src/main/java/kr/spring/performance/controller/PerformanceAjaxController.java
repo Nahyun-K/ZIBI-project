@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kr.spring.member.service.MemberService;
 import kr.spring.member.vo.MemberVO;
 import kr.spring.performance.service.PerformanceService;
-import kr.spring.performance.vo.ChoiceVO;
 import kr.spring.performance.vo.CinemaVO;
 import kr.spring.performance.vo.PerformanceVO;
+import kr.spring.performance.vo.SeatVO;
 import kr.spring.performance.vo.TicketingVO;
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,7 +31,7 @@ public class PerformanceAjaxController {
 	private PerformanceService performanceService;
 	
 	@Autowired
-	private MemberService memberService;
+	private MemberService memberService; 
 	
 	/*=================================
 	 * [관리자] 상영관 - 상영관 + 2관 
@@ -170,7 +170,7 @@ public class PerformanceAjaxController {
 	 * 좌석 선택 페이지 - 좌석 선택
 	 *=================================*/
 	@RequestMapping("/performance/drawSeat")
-	@ResponseBody // 지역2 str으로 해당 상영관의 번호 알아내기
+	@ResponseBody
 	public Map<String, Object> drawSeat(@RequestParam(value="ticketing_num",defaultValue="0") Integer ticketing_num, HttpSession session, HttpServletRequest request){
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		
@@ -185,7 +185,7 @@ public class PerformanceAjaxController {
 		List<CinemaVO> pickCinema = null;
 		List<PerformanceVO> pickPerformance = null;
 		List<TicketingVO> pickTicketing = null;
-		List<ChoiceVO> choosenSeat = null;
+		List<SeatVO> choosenSeat = null;
 		
 		// sql
 		pickCinema = performanceService.pickCinema(map);
