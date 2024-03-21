@@ -333,6 +333,7 @@
 		JOIN perform_choice pc ON t.ticketing_num = pc.ticketing_num
 		JOIN perform_payment pp ON pc.choice_num = pp.choice_num
 		JOIN cinema c ON t.cinema_num = c.cinema_num
+        JOIN perform_seat ps ON pc.choice_num = ps.seat_num
 		WHERE pc.mem_num=#{mem_num}
 	</sql>
 	
