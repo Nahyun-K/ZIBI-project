@@ -102,7 +102,7 @@
 		   ticketing_num)
 		VALUES (
 		   perform_choice_seq.nextval,
-		   #{choice_row},
+		   #{choice_adult},
 		   #{choice_teenage},
 		   #{choice_treatment},
 		   #{mem_num},
