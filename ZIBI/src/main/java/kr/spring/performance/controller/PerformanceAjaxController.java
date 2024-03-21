@@ -193,7 +193,7 @@ public class PerformanceAjaxController {
 		pickTicketing = performanceService.pickTicketing(map);
 		
 		// 이미 예약된 좌석 선택
-		choosenSeat = performanceService.selectChoice(map); 
+		choosenSeat = performanceService.selectChoice(map);
 
 		
 		log.debug("===================<<Ajax>>======================");
