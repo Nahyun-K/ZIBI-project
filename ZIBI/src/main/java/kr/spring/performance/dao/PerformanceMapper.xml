@@ -243,7 +243,7 @@
 	
 	<!-- 티켓번호에 따른 performance 정보 -->
 	<select id="choosingPerformance" parameterType="map">
-		SELECT p.performance_num, p.performance_title, p.performance_poster, p.performance_start_date, p.performance_age, p.performance_category
+		SELECT p.performance_num, p.performance_title, p.performance_poster, p.performance_start_date, p.performance_age, p.performance_id
 		<include refid="pick_performance"></include>
 	</select>
 	
@@ -343,10 +343,6 @@
 			AND pp.payment_uid=#{payment_uid}
 		</if>
 	</sql>
-	
-	
-	
-	
 	
 </mapper>
 
