@@ -195,10 +195,10 @@ public class PerformanceServiceImpl implements PerformanceService {
 		return performanceMapper.selectPayCount(map);
 	}
 
-	@Override
-	public void deleteChoice(Map<String, Object> map) {
-		performanceMapper.deleteChoice(map);
-	}
+//	@Override
+//	public void deleteChoice(Map<String, Object> map) {
+//		performanceMapper.deleteChoice(map);
+//	}
 
 	@Override
 	public int countPerformance(int performance_id) {
@@ -209,6 +209,8 @@ public class PerformanceServiceImpl implements PerformanceService {
 	public void insertSeat(Map<String, Object> map) {
 		performanceMapper.insertSeat(map);
 	}
+
+	
 
 
 	
