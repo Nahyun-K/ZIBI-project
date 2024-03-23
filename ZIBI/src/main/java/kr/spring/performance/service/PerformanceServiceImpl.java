@@ -186,8 +186,8 @@ public class PerformanceServiceImpl implements PerformanceService {
 	}
 
 	@Override
-	public PerformanceVO selectWithPerformance(int performance_num) {
-		return performanceMapper.selectWithPerformance(performance_num);
+	public PerformanceVO selectWithPerformance(int performance_id) {
+		return performanceMapper.selectWithPerformance(performance_id);
 	}
 
 	@Override

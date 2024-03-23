@@ -23,7 +23,7 @@ public interface PerformanceService {
 	public List<TicketingVO> selectDate(); 
 	
 	
-	public PerformanceVO selectWithPerformance(int performance_num);
+	public PerformanceVO selectWithPerformance(int performance_id);
 	
 	public List<CinemaVO> selectCinemaWithTicketing(Map<String, Object> map);
 	public List<PerformanceVO> selectPerformanceWithTicketing(Map<String, Object> map);
