@@ -20,28 +20,12 @@
 			<div>
 			<c:forEach var="total" items="${total}" varStatus="status">
 				<div class="showTicket">
-					<img class="showTicketImg" src="${pageContext.request.contextPath}/upload/${total.performanceVO.performance_poster}" alt="">
+					<img class="showTicketImg" src="https://image.tmdb.org/t/p/w500/${total.performanceVO.performance_poster}" alt="">
 				</div>
 				
 					<div class="showTicket">
 						<div class="ticketBody">
 							${total.performanceVO.performance_title}
-							<c:if test="${total.performanceVO.performance_age == 0}">
-							전체 관람가
-							<img class="ratingAge" src="${pageContext.request.contextPath}/images/hyun/rating1.png">
-							</c:if>
-							<c:if test="${total.performanceVO.performance_age == 12}">
-							12세 이상 관람
-							<img class="ratingAge" src="${pageContext.request.contextPath}/images/hyun/rating2.png">
-							</c:if>
-							<c:if test="${total.performanceVO.performance_age == 15}">
-							15세 이상 관람
-							<img class="ratingAge" src="${pageContext.request.contextPath}/images/hyun/rating3.png">
-							</c:if>
-							<c:if test="${total.performanceVO.performance_age == 19}">
-							청소년 관람 불가
-							<img class="ratingAge" src="${pageContext.request.contextPath}/images/hyun/rating4.png">
-							</c:if>
 						</div>
 						<div class="ticketInfo">
 							<span class="ticketLabel">상영관</span>
@@ -66,7 +50,7 @@
 							<span class="ticketContent">
 							<c:forEach var="all" items="${all}" varStatus="status">
 							<c:if test="${total.paymentVO.payment_uid==all.paymentVO.payment_uid}">
-								${all.choiceVO.choice_row+1}행 ${all.choiceVO.choice_col+1}열  
+								${all.seatVO.seat_row+1}행 ${all.seatVO.seat_col+1}열  
 							</c:if>
 							</c:forEach>
 							</span>
