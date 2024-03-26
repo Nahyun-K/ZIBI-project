@@ -19,7 +19,7 @@
 		<div class="seat-movieInfo-sort">
 			<c:forEach var="performance" items="${pickPerformance}" varStatus="status">
 			<div class="div_inline">
-					<img class="poster" src="${pageContext.request.contextPath}/upload/${performance.performance_poster}" alt="">
+					<img class="poster" src="https://image.tmdb.org/t/p/w500/${performance.performance_poster}" alt="">
 				</div>
 			</c:forEach>
 		
@@ -33,7 +33,7 @@
 				<c:forEach var="performance" items="${pickPerformance}" varStatus="status">
 					<div class="movieInfo-sort">${performance.performance_title}</div>
 					<div class="movieInfo-sort">
-					<c:if test="${performance.performance_age == 0}">
+					<%-- <c:if test="${performance.performance_age == 0}">
 					전체 관람가
 					<img class="ratingAge" src="${pageContext.request.contextPath}/images/hyun/rating1.png">
 					</c:if>
@@ -48,7 +48,7 @@
 					<c:if test="${performance.performance_age == 19}">
 					청소년 관람 불가
 					<img class="ratingAge" src="${pageContext.request.contextPath}/images/hyun/rating4.png">
-					</c:if>
+					</c:if> --%>
 					</div>
 				</c:forEach>
 			</div>
@@ -84,12 +84,6 @@
 <!-- 영화 정보/ 인원 선택 End -->
 
 
-<%-- <c:forEach var="cinema" items="${pickCinema}" varStatus="status">
-	<div>행 : ${cinema.cinema_row}</div>
-	<div>열 : ${cinema.cinema_col}</div>
-</c:forEach>
- --%>
-
 <!-- 좌석 선택 Start -->
 <div class="container-fluid contact py-6 wow" data-wow-delay="0.1s">
 	<div class="container">
@@ -101,8 +95,6 @@
 	</div>
 </div>
 <!-- 좌석 선택 End -->
-
-
 
 
 <br><br><br>
