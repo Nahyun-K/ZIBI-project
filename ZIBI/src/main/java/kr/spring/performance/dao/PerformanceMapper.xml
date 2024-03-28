@@ -221,7 +221,7 @@
 	
 	<!-- 티켓번호에 따른 performance 정보 -->
 	<select id="pickPerformance" parameterType="map" resultType="PerformanceVO">
-		SELECT p.performance_num, p.performance_title, p.performance_poster, p.performance_start_date, p.performance_age, p.performance_category
+		SELECT p.performance_num, p.performance_title, p.performance_poster, p.performance_start_date, p.performance_age, p.performance_id
 		<include refid="pick_performance"></include>
 	</select>
 	
