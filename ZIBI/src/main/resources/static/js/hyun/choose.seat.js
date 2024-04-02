@@ -136,18 +136,6 @@ $(function(){ // performanceSeat.jsp
 	$(document).on('mouseover','.seat-style',function(){
 		$(this).css("cursor","pointer");
 		$(this).addClass('rev-over-style');
-		/*if(rev_cnt == 1){
-			$(this).addClass('rev-over-style');
-		}else if(rev_cnt >= 2 && rev_cnt <= 8){
-			$(this).addClass('rev-over-style');
-			let colNum = $(this).attr('id').split('_')[1];
-			
-			if($(this).next()[0].tagName != 'BR'){
-				$(this).next().addClass('rev-over-style');
-			}else{
-				$(this).prev().addClass('rev-over-style');
-			}
-		}*/
 	});
 	
 	$(document).on('mouseout','.seat-style',function(){
