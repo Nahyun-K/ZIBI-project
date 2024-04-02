@@ -113,8 +113,6 @@ $(function(){ // performanceSeat.jsp
 	function seat(param){
 		count = 0;
 
-		let standard = param.pickCinema[0].cinema_col * 0.2;
-		
 		$('#seat').empty();
 		let output = '';
 		for(let i=0; i<param.pickCinema[0].cinema_row; i++){
@@ -127,8 +125,8 @@ $(function(){ // performanceSeat.jsp
 		
 		// 이미 선택된 좌석은 선택할 수 없음
 		for(let i=0; i<param.choosenSeat.length; i++){
-			console.log(param.choosenSeat[i].choice_row+'_'+param.choosenSeat[i].choice_col);
-			$('#'+(param.choosenSeat[i].choice_row)+'_'+(param.choosenSeat[i].choice_col)).addClass("seat-full");
+			console.log(param.choosenSeat[i].seat_row+'_'+param.choosenSeat[i].seat_col);
+			$('#'+(param.choosenSeat[i].seat_row)+'_'+(param.choosenSeat[i].seat_col)).addClass("seat-full");
 		}
 		
 		
